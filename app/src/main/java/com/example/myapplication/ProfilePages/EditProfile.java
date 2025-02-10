@@ -1,22 +1,24 @@
 package com.example.myapplication.ProfilePages;
 
-import android.annotation.SuppressLint;
-import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
-import com.example.myapplication.database.DatabaseHelper;
+import com.example.myapplication.database.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class EditProfile extends AppCompatActivity {
 
@@ -34,7 +36,7 @@ public class EditProfile extends AppCompatActivity {
         Button updateButton = findViewById(R.id.update);
         ImageView goBackButton = findViewById(R.id.returntext);
 
-        userId = getIntent().getIntExtra("userId", -1);
+        userId = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE).getInt("userId", -1);
 
         if (userId != -1) {
             fetchUserData(userId);
@@ -42,32 +44,55 @@ public class EditProfile extends AppCompatActivity {
             Toast.makeText(this, "User ID not found. Please try again.", Toast.LENGTH_SHORT).show();
         }
 
-        goBackButton.setOnClickListener(v -> {
-            Intent intent = new Intent(EditProfile.this, ProfileFragment.class);
-            startActivity(intent);
-        });
-
+        goBackButton.setOnClickListener(v -> finish());
         updateButton.setOnClickListener(v -> updateUserData());
     }
 
+
     private void fetchUserData(int userId) {
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT name, email FROM Users WHERE id = ?", new String[]{String.valueOf(userId)});
+        new FetchUserDataTask().execute(userId);
+    }
 
-        if (cursor != null && cursor.moveToFirst()) {
-            @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex("name"));
-            @SuppressLint("Range") String email = cursor.getString(cursor.getColumnIndex("email"));
+    private class FetchUserDataTask extends AsyncTask<Integer, Void, String[]> {
 
-            nameEditText.setText(name);
-            emailEditText.setText(email);
+        @Override
+        protected String[] doInBackground(Integer... params) {
+            int userId = params[0];
+            String[] userData = new String[2];
 
-            cursor.close();
-        } else {
-            Toast.makeText(this, "User details not found", Toast.LENGTH_SHORT).show();
+            Connection connection = DatabaseConnection.getConnection();
+            if (connection != null) {
+                try {
+                    String query = "SELECT name, email FROM users WHERE id = ?";
+                    PreparedStatement statement = connection.prepareStatement(query);
+                    statement.setInt(1, userId);
+
+                    ResultSet resultSet = statement.executeQuery();
+                    if (resultSet.next()) {
+                        userData[0] = resultSet.getString("name");
+                        userData[1] = resultSet.getString("email");
+                    }
+
+                    resultSet.close();
+                    statement.close();
+                    connection.close();
+                } catch (SQLException e) {
+                    Log.e("FetchUserDataTask", "Error fetching user data", e);
+                }
+            }
+
+            return userData;
         }
 
-        db.close();
+        @Override
+        protected void onPostExecute(String[] userData) {
+            if (userData != null && userData[0] != null) {
+                nameEditText.setText(userData[0]);
+                emailEditText.setText(userData[1]);
+            } else {
+                Toast.makeText(EditProfile.this, "Failed to load user data", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void updateUserData() {
@@ -79,31 +104,54 @@ public class EditProfile extends AppCompatActivity {
             return;
         }
 
+        // Validate email format
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(updatedEmail).matches()) {
             Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        DatabaseHelper databaseHelper = new DatabaseHelper(this);
-        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        new UpdateUserDataTask().execute(updatedName, updatedEmail);
+    }
 
-        ContentValues values = new ContentValues();
-        values.put("name", updatedName);
-        values.put("email", updatedEmail);
 
-        try {
-            int rowsAffected = db.update("Users", values, "id = ?", new String[]{String.valueOf(userId)});
-            db.close();
+    private class UpdateUserDataTask extends AsyncTask<String, Void, Boolean> {
 
-            if (rowsAffected > 0) {
-                Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-                fetchUserData(userId); // Refresh UI with updated data
-            } else {
-                Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+        @Override
+        protected Boolean doInBackground(String... params) {
+            String updatedName = params[0];
+            String updatedEmail = params[1];
+
+            Connection connection = DatabaseConnection.getConnection();
+            if (connection != null) {
+                try {
+                    String query = "UPDATE users SET name = ?, email = ? WHERE id = ?";
+                    PreparedStatement statement = connection.prepareStatement(query);
+                    statement.setString(1, updatedName);
+                    statement.setString(2, updatedEmail);
+                    statement.setInt(3, userId);
+
+                    int rowsAffected = statement.executeUpdate();
+                    statement.close();
+                    connection.close();
+
+                    return rowsAffected > 0;
+                } catch (SQLException e) {
+                    Log.e("UpdateUserDataTask", "Error updating user data", e);
+                    return false;
+                }
             }
-        } catch (Exception e) {
-            Log.e("UpdateDebug", "Error updating user: " + e.getMessage());
-            Toast.makeText(this, "Email is already used", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            if (success) {
+                Toast.makeText(EditProfile.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
+                finish();
+            } else {
+                Toast.makeText(EditProfile.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
+

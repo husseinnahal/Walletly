@@ -28,7 +28,7 @@ public class Home extends AppCompatActivity {
             if (item.getItemId() == R.id.home) {
                 selectedFragment = new HomeFragment();
             } else if (item.getItemId() == R.id.search) {
-                selectedFragment = new DashFragment();
+                selectedFragment = new SavingFragment();
             } else if (item.getItemId() == R.id.profile) {
                 selectedFragment = new ProfileFragment();
             }

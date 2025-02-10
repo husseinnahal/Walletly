@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cattran"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFF5FF"
+    tools:context=".HomeFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="395dp"
+            android:layout_height="231dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="11dp"
+            android:backgroundTint="#BDD8FF"
+            android:background="@drawable/radius"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/Cashlabel"
+                android:layout_width="230dp"
+                android:layout_height="65dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="48dp"
+                android:text="Saving"
+                android:textColor="#152156"
+                android:textSize="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cashvalue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="16dp"
+                android:text="4000$"
+                android:textColor="#3679FB"
+                android:textSize="48sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Cashlabel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/savingRecyclerView"
+            android:layout_width="371dp"
+            android:layout_height="409dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="21dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addsave" />
+
+        <Button
+            android:id="@+id/addsave"
+            android:layout_width="87dp"
+            android:layout_height="39dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="29dp"
+            android:backgroundTint="#3679FB"
+            android:background="@drawable/radius"
+            android:text="Add"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

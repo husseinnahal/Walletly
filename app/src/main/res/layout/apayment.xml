@@ -1,0 +1,47 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Apayment"
+    android:layout_width="match_parent"
+    android:layout_height="77dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/radius"
+    android:backgroundTint="#DAE9FF">
+
+    <TextView
+        android:id="@+id/dateam"
+        android:layout_width="81dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="4dp"
+        android:text="name"
+        android:textColor="#1B358D"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/cattext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textColor="#1844DD"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateam" />
+
+    <TextView
+        android:id="@+id/saveam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="63dp"
+        android:text="20$"
+        android:textColor="#DC2626"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

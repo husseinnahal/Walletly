@@ -12,7 +12,6 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -25,26 +24,24 @@ android {
             )
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
-    buildFeatures {
-        viewBinding = true
-    }
+
 }
 
 dependencies {
-
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    implementation(libs.lifecycle.livedata.ktx)
-    implementation(libs.lifecycle.viewmodel.ktx)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
+    implementation(libs.appcompat.v131)
+    implementation(libs.material.v140)
+    implementation(libs.activity.v123)
+    implementation(libs.constraintlayout.v210)
+    implementation(libs.ext.junit)
     testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    androidTestImplementation(libs.espresso.core.v340)
+
+    // MySQL Connector
+//    implementation (libs.mysql.connector.java.v8030)
+  implementation(libs.mysql.connector.java.v5149)
 }

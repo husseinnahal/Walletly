@@ -1,144 +1,112 @@
 package com.example.myapplication.SignUp;
 
-import android.annotation.SuppressLint;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.myapplication.Home;
 import com.example.myapplication.R;
-import com.example.myapplication.database.DatabaseHelper;
+import com.example.myapplication.database.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class singup extends AppCompatActivity {
 
-    private DatabaseHelper dbHelper;
+    EditText nameInput, emailInput, passwordInput;
+    Button signupButton;
+    TextView tologin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        if (isUserLoggedIn()) {
-            navigateToProfile();
-            return;
-        }
-
-        EdgeToEdge.enable(this);
         setContentView(R.layout.signup);
 
+        tologin = findViewById(R.id.tologin);
 
-        dbHelper = new DatabaseHelper(this);
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-
-        TextView toLogin = findViewById(R.id.tologin);
-        toLogin.setOnClickListener(v -> {
+        tologin.setOnClickListener(v -> {
             Intent intent = new Intent(singup.this, login.class);
             startActivity(intent);
         });
 
+        nameInput = findViewById(R.id.titletrainput);
+        emailInput = findViewById(R.id.email);
+        passwordInput = findViewById(R.id.password);
+        signupButton = findViewById(R.id.signup);
 
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button btnSignUp = findViewById(R.id.signup);
-        btnSignUp.setOnClickListener(v -> {
-
-            EditText etName = findViewById(R.id.name);
-            EditText etEmail = findViewById(R.id.email);
-            EditText etPassword = findViewById(R.id.password);
-
-            String name = etName.getText().toString().trim();
-            String email = etEmail.getText().toString().trim();
-            String password = etPassword.getText().toString().trim();
-
-            if (!validateInput(name, email, password)) return;
-
-
-            if (isEmailRegistered(email)) {
-                Toast.makeText(singup.this, "Email already registered", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-
-            long userId = insertUser(name, email, password);
-            if (userId != -1) {
-                saveLoginState((int) userId);
-                navigateToProfile();
-            } else {
-                Toast.makeText(singup.this, "Error signing up", Toast.LENGTH_SHORT).show();
-            }
-        });
+        signupButton.setOnClickListener(v -> new Thread(this::registerUser).start());
     }
 
+    private void registerUser() {
+        String name = nameInput.getText().toString().trim();
+        String email = emailInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim();
 
-    private void saveLoginState(int userId) {
-        getSharedPreferences("UserPrefs", MODE_PRIVATE)
-                .edit()
-                .putInt("userId", userId)
-                .putBoolean("isLoggedIn", true)
-                .apply();
-    }
-
-
-    private boolean isUserLoggedIn() {
-        return getSharedPreferences("UserPrefs", MODE_PRIVATE).getBoolean("isLoggedIn", false);
-    }
-
-    private void navigateToProfile() {
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-        finish();
-    }
-
-    private boolean validateInput(String name, String email, String password) {
         if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(singup.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            return false;
+            runOnUiThread(() -> Toast.makeText(singup.this, "Fill all fields", Toast.LENGTH_SHORT).show());
+            return;
+        } else if (name.length() < 3) {
+            runOnUiThread(() -> Toast.makeText(singup.this, "Name must be at least 3 characters", Toast.LENGTH_SHORT).show());
+            return;
+        } else if (password.length() < 6) {
+            runOnUiThread(() -> Toast.makeText(singup.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show());
+            return;
         }
-        if (name.length() < 3) {
-            Toast.makeText(singup.this, "Name must be at least 3 characters", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            Toast.makeText(singup.this, "Invalid email format", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (password.length() < 6) {
-            Toast.makeText(singup.this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-    }
 
-    private boolean isEmailRegistered(String email) {
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT id FROM Users WHERE email = ?", new String[]{email});
-        boolean exists = cursor != null && cursor.getCount() > 0;
-        if (cursor != null) cursor.close();
-        return exists;
-    }
+        Connection connection = DatabaseConnection.getConnection();
+        if (connection != null) {
+            try {
+                String sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1, name);
+                statement.setString(2, email);
+                statement.setString(3, password);
+                int rowsInserted = statement.executeUpdate();
 
-    private long insertUser(String name, String email, String password) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("name", name);
-        values.put("email", email);
-        values.put("password", password);
-        return db.insert("Users", null, values);
+                if (rowsInserted > 0) {
+                    // Retrieve the user ID (assuming the table has an auto-increment primary key)
+                    String selectSql = "SELECT id FROM users WHERE email = ? AND password = ?";
+                    PreparedStatement selectStatement = connection.prepareStatement(selectSql);
+                    selectStatement.setString(1, email);
+                    selectStatement.setString(2, password);
+                    ResultSet resultSet = selectStatement.executeQuery();
+
+                    if (resultSet.next()) {
+                        int userId = resultSet.getInt("id");
+
+                        // Save the userId to SharedPreferences
+                        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("userId", userId);
+                        editor.apply();
+
+                        runOnUiThread(() -> {
+                            Toast.makeText(singup.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(singup.this, Home.class));
+                            finish();
+                        });
+                    }
+
+                    resultSet.close();
+                    selectStatement.close();
+                }
+
+                statement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                runOnUiThread(() -> Toast.makeText(singup.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            }
+        } else {
+            runOnUiThread(() -> Toast.makeText(singup.this, "Database connection failed", Toast.LENGTH_SHORT).show());
+        }
     }
 }

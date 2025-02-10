@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".amounts">
+
+    <TextView
+        android:id="@+id/amtraa"
+        android:layout_width="222dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="76dp"
+        android:text="Saved amount"
+        android:textColor="#1A38B3"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titletrainput" />
+
+    <Button
+        android:id="@+id/backsave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="26dp"
+        android:backgroundTint="#10D1D1D1"
+        android:text="back"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="75dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="56dp"
+        android:text="Date"
+        android:textColor="#1A38B3"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backsave" />
+
+    <EditText
+        android:id="@+id/titletrainput"
+        android:layout_width="340dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="46dp"
+        android:background="@drawable/edittext_border"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date" />
+
+    <EditText
+        android:id="@+id/savedamunt"
+        android:layout_width="340dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="46dp"
+        android:background="@drawable/edittext_border"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/amtraa" />
+
+    <Button
+        android:id="@+id/createam"
+        android:layout_width="340dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="71dp"
+        android:layout_marginEnd="46dp"
+        android:background="@drawable/radius"
+        android:backgroundTint="#152156"
+        android:text="create"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/savedamunt" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,96 +1,103 @@
 package com.example.myapplication.SignUp;
 
-import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.Home;
 import com.example.myapplication.R;
-import com.example.myapplication.database.DatabaseHelper;
+import com.example.myapplication.database.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class login extends AppCompatActivity {
 
-    private DatabaseHelper databaseHelper;
+    EditText emailInput, passwordInput;
+    Button loginButton;
+     TextView tosingin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (isUserLoggedIn()) {
-            navigateToHome();
-            return;
-        }
-
-        EdgeToEdge.enable(this);
         setContentView(R.layout.login);
 
 
-        TextView toSignup = findViewById(R.id.tosignup);
-        toSignup.setOnClickListener(v -> {
+        tosingin = findViewById(R.id.tosignup);
+
+
+        tosingin.setOnClickListener(v -> {
             Intent intent = new Intent(login.this, singup.class);
             startActivity(intent);
         });
 
-        databaseHelper = new DatabaseHelper(this);
+        emailInput = findViewById(R.id.email);
+        passwordInput = findViewById(R.id.password);
+        loginButton = findViewById(R.id.signup);
 
-        EditText emailEditText = findViewById(R.id.email);
-        EditText passwordEditText = findViewById(R.id.password);
-        Button loginButton = findViewById(R.id.signup);
+        loginButton.setOnClickListener(v -> new Thread(this::loginUser).start());
+    }
 
-        loginButton.setOnClickListener(v -> {
-            String email = emailEditText.getText().toString().trim();
-            String password = passwordEditText.getText().toString().trim();
+    private void loginUser() {
+        String email = emailInput.getText().toString().trim();
+        String password = passwordInput.getText().toString().trim();
 
-            // Validate inputs
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(login.this, "Please fill all the fields", Toast.LENGTH_LONG).show();
-                return;
-            }
+        if (email.isEmpty() || password.isEmpty()) {
+            runOnUiThread(() -> Toast.makeText(login.this, "Fill all fields", Toast.LENGTH_SHORT).show());
+            return;
+        }
 
-            SQLiteDatabase db = databaseHelper.getReadableDatabase();
-            Cursor cursor = db.rawQuery("SELECT id, email, password FROM Users WHERE email = ?", new String[]{email});
+        Connection connection = DatabaseConnection.getConnection();
+        if (connection != null) {
+            try {
+                String sql = "SELECT id FROM users WHERE email = ? AND password = ?";
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.setString(1, email);
+                statement.setString(2, password);
+                ResultSet resultSet = statement.executeQuery();
 
-            if (cursor != null && cursor.moveToFirst()) {
-                @SuppressLint("Range") String dbPassword = cursor.getString(cursor.getColumnIndex("password"));
-                @SuppressLint("Range") int userId = cursor.getInt(cursor.getColumnIndex("id"));
+                if (resultSet.next()) {
+                    int userId = resultSet.getInt("id");
 
-                if (password.equals(dbPassword)) {
-                    saveLoginState(userId);
-                    navigateToHome();
+
+                    saveUserId(userId);
+
+                    runOnUiThread(() -> {
+                        Toast.makeText(login.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(login.this, Home.class);
+                        startActivity(intent);
+                        finish();
+                    });
                 } else {
-                    Toast.makeText(login.this, "Invalid password", Toast.LENGTH_LONG).show();
+                    runOnUiThread(() -> Toast.makeText(login.this, "Invalid email or password", Toast.LENGTH_SHORT).show());
                 }
-                cursor.close();
-            } else {
-                Toast.makeText(login.this, "User not found", Toast.LENGTH_LONG).show();
+
+                resultSet.close();
+                statement.close();
+                connection.close();
+            } catch (SQLException e) {
+                Log.e("LoginError", "SQL Exception: " + e.getMessage(), e);
+                runOnUiThread(() -> Toast.makeText(login.this, "Database error", Toast.LENGTH_SHORT).show());
             }
-        });
+        } else {
+            runOnUiThread(() -> Toast.makeText(login.this, "Database connection failed", Toast.LENGTH_SHORT).show());
+        }
     }
 
-    private void saveLoginState(int userId) {
-        getSharedPreferences("UserPrefs", MODE_PRIVATE)
-                .edit()
-                .putInt("userId", userId)
-                .putBoolean("isLoggedIn", true)
-                .apply();
-    }
-
-    private boolean isUserLoggedIn() {
-        return getSharedPreferences("UserPrefs", MODE_PRIVATE).getBoolean("isLoggedIn", false);
-    }
-
-    private void navigateToHome() {
-        Intent intent = new Intent(this, Home.class);
-        startActivity(intent);
-        finish();
+    private void saveUserId(int userId) {
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("userId", userId);
+        editor.apply();
     }
 }
