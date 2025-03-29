@@ -1,0 +1,179 @@
+{
+  "tran":"معاملات",
+  "saving":"إدخار",
+  "debt":"ديون",
+  "stats":"إحصائيات",
+
+  "updateProfile": "تحديث الملف الشخصي",
+  "switchTheme": "تغيير الوضع",
+  "language": "اللغة",
+  "currency": "العملة",
+  "pass":"تحديث كلمة المرور",
+  "logout":"تسجيل خروج",
+
+  "upProf":"تحديث الملف الشخصي",
+  "profImg":"صورة",
+  "username":"الاسم",
+  "email":"بريد الإلكتروني",
+  "up":"تحديث",
+  "create": "إنشاء",
+  "edit": "تعديل",
+  "delete": "حذف",
+  "newPass":"كلمة مرور جديدة" ,
+  "oldPass":"كلمة المرور القديمة",
+
+  "loading":"تحميل",
+
+  "password": {
+    "success":"تم تحديث كلمة المرور بنجاح",
+    "oldPassword": {
+      "required": "كلمة المرور القديمة مطلوبة"
+    },
+    "newPassword": {
+      "required": "كلمة المرور الجديدة مطلوبة",
+      "min": "يجب أن تكون على الأقل 8 أحرف",
+      "pattern": "يجب أن تحتوي على حرف كبير، ورقم، وحرف خاص."
+    }
+  },
+
+  "userValidation": {
+    "success":"تم تحديث المستخدم بنجاح",
+    "usernameRequired": "اسم المستخدم مطلوب",
+    "usernameMin": "يجب أن يكون على الأقل 3 أحرف",
+    "usernameMax": "يجب أن يكون أقل من 40 حرفًا",
+    "emailRequired": "البريد الإلكتروني مطلوب",
+    "emailInvalid": "أدخل بريدًا إلكترونيًا صالحًا"
+  },
+
+  "Tran":{
+    "balance":"الرصيد",
+    "tIncome":"إجمالي الدخل",
+    "tExpense":"إجمالي النفقات"
+  },
+
+    "filters": {
+      "clear":"مسح",
+      "addTransaction": "إضافة معاملة",
+      "addCat":"إضافة فئة",
+      "showFilters": "عرض الفلاتر",
+      "label": "الفلاتر",
+      "categories": "الفئات",
+      "transactions": "المعاملات",
+      "date": "التاريخ",
+      "from": "من",
+      "to": "إلى",
+      "all": "الكل",
+      "transactionTypes": {
+        "expenses": "المصاريف",
+        "income": "الدخل"
+      },
+      "dateOptions": {
+        "today": "اليوم",
+        "week": "هذا الأسبوع",
+        "month": "هذا الشهر",
+        "year": "هذه السنة"
+      }
+    },
+
+    "AddCat": {
+      "addedcat":"تمت إضافة الفئة بنجاح",
+      "addCat": "إضافة فئة",
+      "name": "الاسم",
+      "img":"صورة",
+      "validation": {
+        "imageRequired": "الصورة مطلوبة",
+        "nameRequired": "الاسم مطلوب",
+        "nameMin": "يجب أن يكون 3 أحرف على الأقل",
+        "nameMax": "يجب أن يكون أقل من 20 حرفًا"
+      }
+
+    },
+
+  
+  
+      "AddTran": {
+        "addTransaction":"تمت إضافة المعاملة بنجاح",
+        "upTransaction":"تم تحديث المعاملة بنجاح",
+        "uptrn": "تحديث المعاملة",
+        "noTransactions": "لم يتم العثور على معاملات",
+        "title": "العنوان",
+        "amount": "المبلغ",
+        "type": "النوع",
+        "category": "الفئة",
+        "unit": "العملة",
+        "selectType": "اختر النوع",
+        "selectCategory": "اختر الفئة",
+        "selectUnit": "اختر العملة",
+        "income": "دخل",
+        "expense": "مصاريف",
+        "validation": {
+          "titleRequired": "العنوان مطلوب",
+          "titleMin": "يجب أن يكون على الأقل 3 أحرف",
+          "titleMax": "يجب أن يكون أقل من 50 حرفًا",
+          "amountRequired": "المبلغ مطلوب",
+          "amountInvalid": "يجب أن يكون رقمًا صالحًا",
+          "amountMin": "يجب أن يكون المبلغ أكبر من 0",
+          "typeRequired": "النوع مطلوب",
+          "typeInvalid": "يجب أن يكون إما دخل أو مصاريف",
+          "categoryRequired": "الفئة مطلوبة",
+          "unitRequired": "العملة مطلوبة"
+        },
+        "delTran": {
+          "trn": "المعاملة",
+          "message": "هل تريد حذف هذه المعاملة؟",
+          "conf": "تأكيد الحذف",
+          "summary": "تم حذف المعاملة",
+          "detail": "تم حذف المعاملة بنجاح"
+        }
+      },
+
+      "savings": {
+        "saving": "المدخرات",
+        "addGoal": "إضافة هدف",
+        "upGoal":"تحديث الهدف",
+        "addSuccess": "تم إضافة الهدف بنجاح",
+        "upSuccess": "تم تحديث الهدف بنجاح",
+        "from":"من",
+        "notfound":"لا يوجد أي أهداف",
+        "confirmDel": "هل تريد حذف هذا الهدف؟",
+        "summary": "تم حذف الهدف",
+        "deleted": "تم حذف الهدف بنجاح",
+        "payment": {
+          "payments": "المدفوعات",
+          "addPay": "إضافة دفعة",
+          "upPay":"تحديث الدفعة",
+          "add": "إضافة",
+          "paySuccess": "تم إضافة الدفعة بنجاح",
+          "upPaySuccess": "تم تحديث الدفعة بنجاح",
+          "confirmDelPay": "هل تريد حذف هذه الدفعة؟",
+          "Paydeleted": "تم الحذف  بنجاح",
+          "noPay": "لم يتم العثور على مدفوعات",
+          "del":"تم حذف الدفعة"
+
+        }
+
+      },
+
+      "Debt": {
+        "debt": "الديون",
+        "adddebt": "إضافة دين",
+        "upDebt":"تحديث الدين",
+        "addSuccess": "تم إضافة الدين بنجاح",
+        "upSuccess": "تم تحديث الدين بنجاح",
+        "from":"من",
+        "notfound":"لا يوجد أي دين",
+        "confirmDel": "هل تريد حذف هذا الدين؟",
+        "summary": "تم حذف الدين",
+        "deleted": "تم حذف الدين بنجاح",
+        "whomRequired": "لمن مطلوب",
+        "forwhom":"لمن"
+
+      },
+      "Stats": {
+        "InEx": "الدخل مقابل النفقات",
+        "noTransactions": "لا توجد معاملات متاحة"
+      }
+     
+  
+
+}

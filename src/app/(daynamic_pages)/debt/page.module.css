@@ -1,0 +1,264 @@
+.addGoal{
+    background: #DAE9FF;
+    color: #2059F0;
+    padding: 15px;
+    border-radius: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    width: 200px;
+    margin-bottom: 15px;
+}
+.summery{
+    background-color: #BDD8FF;
+    height: 160px;
+    border-radius: 15px;
+    padding: 20px 30px;
+    font-size: 33px;
+    color: #3679FB;
+    display: flex;
+    align-items: center;
+}
+
+.goals{
+    display: flex;
+        gap: 30px;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+}
+.goal{
+    background: #DAE9FF;
+    width: calc(25% - 30px);
+    max-width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    cursor: pointer;
+    gap: 17px;
+    align-items: center;
+    color: #1B358D;
+    padding: 10px 20px 10px 10px;
+    border-radius: 5px 15px;
+}
+.img{
+    width: 42px;
+    height: 48px;
+    background: white;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+.target{
+    margin: 0;
+    background: white;
+    border-radius: 0 10px 10px 0;
+    width: 90px;
+}
+.amount{
+    font-size: 12px;
+    margin: 0;
+}
+.tofrom{
+    height: 10px;
+    margin: 3px 0;
+    border-radius: 0 10px 10px 0;
+}
+
+
+.goalinfo{
+    display: flex;
+        justify-content: flex-end;
+        width: 100%;
+        gap:  15px;
+        flex-wrap: wrap;
+}
+.edit ,.del{
+    background-color: #152156;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin: 0;
+}
+.del{
+    background-color: red;
+}
+
+.payments{
+    display: flex;
+    gap: 7px;
+    flex-direction: column;
+}
+.payment{
+    padding:9px;
+    background: #BDD8FF;
+    color: #3679FB;
+    display: flex;
+    gap: 15px;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    border-radius: 10px;
+}
+.payment:nth-child(odd){
+    background-color:#DAE9FF;
+}
+.actions{
+    display: flex;
+    gap: 5px;
+}
+.upPay{
+    font-size: 1rem;
+    background:#1B358D;
+    cursor: pointer;
+    padding: 5.5px;
+    border-radius: 50%;
+    color: #BDD8FF;
+}
+
+@media screen and (max-width: 1400px){
+    .goals{
+            gap: 20px;
+    }
+    .goal{
+        width: calc(25% - 20px);
+        gap: 15px;
+        padding: 10px 15px 10px 10px;
+    
+    }
+}
+@media screen and (max-width: 1180px){
+    .goals{
+            gap: 15px;
+    }
+    .goal{
+        width: calc(33% - 15px);
+        gap: 15px;
+        padding: 10px 15px 10px 10px;
+    
+    }
+}
+@media screen and (max-width: 900px){
+    .goals{
+            gap: 10px;
+    }
+    .goal{
+        width: calc(33.3% - 10px);
+        gap: 10px;
+        padding: 10px 10px 10px 10px;
+    }
+    .amount{
+        font-size: 11px;
+    }
+}
+@media screen and (min-width: 645px)  and (max-width: 700px){
+    .goals{
+        gap: 10px 3px;
+    }
+    .goal{
+        width: calc(33.33% - 3px);
+
+        gap: 10px;
+        padding: 10px 10px 10px 7px;
+    }
+    .img{
+        width: 37px;
+        height: 42px;
+    }
+    
+}
+@media screen and (max-width: 645px){
+    .goals{
+        gap: 15px;
+    }
+    .goal{
+        width: calc(50% - 15px);
+        gap: 10px;
+        padding: 10px 15px 10px 10px;
+    }
+    .payment{
+        font-size: 14px;
+    }
+    .upPay{
+        font-size: 0.8rem;
+    }
+}
+@media screen and (max-width: 600px){
+    .summery{
+        font-size: 27px;
+        height: 130px;
+
+    }
+}
+@media screen and (max-width: 530px){
+    .goals{
+        gap: 15px 5px;
+    }
+    .goal{
+        width: calc(50% - 5px);
+        padding: 10px 7px;
+    
+    }
+    .img{
+        width: 37px;
+        height: 42px;
+    }
+    .amount{
+        font-size: 10px;
+    }
+}
+@media screen and (max-width: 430px){
+    .goals{
+        width: 94%;
+        margin:0 auto;
+        margin-top: 25px;
+    }
+    .amount{
+        font-size: 10px;
+    }
+    .img{
+        width: 32px;
+        height: 40px;
+    }
+    .amount{
+        font-size: 9px;
+    }
+    .payment{
+        font-size: 12px;
+    }
+    .addGoal{
+        width: 150px;
+    }
+}
+@media screen and (max-width: 400px){
+    .summery{
+        width: 95%;
+        margin:0 auto;
+    }
+    .addGoal{
+       margin-left: 2.5%;
+    }
+    .goals{
+        width: 95%;
+    }
+}
+@media screen and (max-width: 360px){
+    .goals{
+        gap: 15px 5px;
+    }
+    .goal{
+        width: 100%;
+        padding: 10px;
+    
+    }
+    .amount{
+        font-size: 12px;
+    }
+    .img{
+        width: 37px;
+        height: 42px;
+    }
+}

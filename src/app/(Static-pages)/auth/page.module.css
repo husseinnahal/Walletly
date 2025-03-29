@@ -1,0 +1,137 @@
+.auth{
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding: 0 30px;
+    background-image: url('/images/auth/background.svg');
+    background-repeat: no-repeat;
+    background-position: left;
+    background-size: cover;
+}
+
+.logo{
+    width: 200px;
+    height: auto;
+}
+
+.container{
+    display: flex;
+    gap: 35px;
+    flex-direction: column;
+    align-items: center;
+    width: 450px;
+}
+
+.title{
+    font-size: 40px;
+}
+
+.login , .signup{
+    background: #1A38B3;
+    padding:15px 10px;
+    width: 200px;
+    text-align: center;
+    border-radius: 20px;
+    text-decoration: none;
+    color: white;   
+    width: 100%;
+    cursor: pointer; 
+}
+.signup{
+    background-color: #BDD8FF;
+    color: #1B358D;
+}
+
+
+
+.form{
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    width: 100%;
+
+}
+.inputGroup{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 19px;
+    width: 100%;
+}
+.input{
+    background: transparent;
+    padding: 7px;
+    border-radius: 15px;
+}
+.input:focus{
+    outline: none;
+}
+
+.acc{
+    width: 100%;
+    text-align: end;
+    font-size: 15px;
+}
+.button{
+    background: #1A38B3;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    border-radius: 15px;
+    text-decoration: none;
+    color: white;   
+    width: 100%;
+    cursor: pointer; 
+    font-size: 16px;
+    border: none;
+}
+.error{
+    font-size: 14px;
+    color: red;
+}
+
+@media screen and (max-width: 1000px){
+    .container{
+        width: 350px;
+    }
+    .logo{
+        width: 180px;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 750px){
+    .container{
+        width: 250px;
+    }
+    .logo{
+        width: 150px;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 530px){
+    .auth{
+        display: flex;
+        gap: 40px;
+        padding: 30px 30px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .container{
+        gap: 30px;
+        width: 80%;
+    }
+    .title{
+        font-size: 35px;
+    }
+    .logo{
+        width: 35%;
+        height: auto;
+    }
+}
+

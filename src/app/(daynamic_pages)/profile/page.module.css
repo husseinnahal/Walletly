@@ -1,0 +1,130 @@
+.user{
+    display: flex    ;
+        align-items: center;
+        justify-content: space-around;
+}
+.infoUser{
+    display: flex;
+        gap: 25px;
+        align-items: center;
+}
+.imguser{
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.editUser{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: #FFD500;
+    color: #89570A;
+    padding: 7px 13px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+
+
+.settings{
+    background-color: #DAE9FF;
+    width: 80%;
+    margin: 30px auto;
+    padding:15px;
+    border-radius: 15px;
+    display: flex;
+        flex-direction: column;
+        gap: 15px;
+}
+.feature ,.logout{
+    background: #BDD8FF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 35px;
+    border-radius: 10px;
+    color:#1B358D;
+}
+.logout{
+    background:#1B358D;
+    color:#BDD8FF;
+}
+
+.lang{
+  background: transparent;
+  padding: 3px;
+  border-radius: 10px;
+  border: 1px solid #152156;
+  color: #152156;
+}
+.lang:focus{
+  outline: none;
+}
+
+
+
+@media screen and (max-width: 1000px){
+    .imguser{
+        width: 150px;
+        height: 150px;
+    }
+}
+@media screen and (max-width: 800px){
+    .user{
+        display: flex;
+            justify-content: space-between;
+            padding: 0 15px;
+    }
+    .settings{
+        width: 95%;
+        padding:15px;
+        border-radius: 15px;
+        display: flex;
+            flex-direction: column;
+            gap: 15px;
+    }
+
+}
+@media screen and (max-width: 600px){
+    .user{
+        display: flex;
+            justify-content: space-between;
+            padding: 0 10px;
+            font-size: 14px;
+    }
+    .infoUser{
+            gap: 10px;
+    }
+    .imguser{
+        width: 100px;
+        height: 100px;
+    }
+
+}
+@media screen and (max-width: 500px){
+    .user{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        font-size: 12px;
+    }
+    .settings{
+        padding:20px 10px;
+            gap: 15px;
+    }
+    .imguser{
+        width: 95px;
+        height: 95px;
+    }
+
+}
+
+
+
+
+
+    
+  

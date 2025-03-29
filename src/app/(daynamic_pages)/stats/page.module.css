@@ -1,0 +1,66 @@
+.titleBar{
+    font-size: 35px;
+}
+.head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.yearSelector{
+    padding: 5px;
+    height: 32px;
+    padding: 5px;
+    height: 32px;
+    background:whitesmoke;
+    border-radius: 10px;
+    color:#152156;
+}
+.pie{
+    height: 500px;
+    width: 500px;
+}
+.headPie{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:0 15px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+
+@media screen and (max-width: 800px){
+    .titleBar{
+        font-size: 30px;
+    }
+    .pie{
+        height: 400px;
+        width: 400px;
+    }
+}
+@media screen and (max-width: 600px){
+    .titleBar{
+        font-size: 25px;
+    }
+    .pie{
+        height: 350px;
+        width:350px;
+    }
+}
+@media screen and (max-width: 400px){
+    .barchart{
+            width: 95%;
+            margin:0 auto;
+    }
+    .piechart{
+        width: 95%;
+        margin:0 auto;
+    }
+    .titleBar{
+        font-size: 20px;
+    }
+    .pie{
+        height: 300px;
+        width:300px;
+    }
+}
