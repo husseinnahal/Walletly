@@ -73,7 +73,7 @@
 .img{
     width: 42px;
     height: 47px;
-    background: white;
+    background:#EFF5FF;
     border-radius: 10px;
     background-repeat: no-repeat;
     background-position: center;
@@ -92,9 +92,11 @@
     gap: 10px;
 }
 .btFilter{
-    background-color: #FFFD86;
-    color: #442504;
+    background-color: #FFD500;
+    color: #89570A;
     padding: 10px;
+    border-radius: 15px;
+
 }
 .selections{
     padding: 3px;

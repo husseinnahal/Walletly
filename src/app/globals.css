@@ -45,15 +45,6 @@ body {
 }
 
 
-/* for registration */
-.input{
-  border: 2px solid var(--foreground);
-  color: var(--foreground);
-}
-.acc{
-  color: var(--foreground);
-}
-
 
 @media (prefers-color-scheme: dark) {
   html {

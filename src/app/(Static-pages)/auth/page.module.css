@@ -63,8 +63,10 @@
 }
 .input{
     background: transparent;
-    padding: 7px;
+    padding: 9px;
     border-radius: 15px;
+    border: 2px solid var(--foreground);
+    color: var(--foreground);
 }
 .input:focus{
     outline: none;
@@ -74,6 +76,8 @@
     width: 100%;
     text-align: end;
     font-size: 15px;
+  color: var(--foreground);
+
 }
 .button{
     background: #1A38B3;
