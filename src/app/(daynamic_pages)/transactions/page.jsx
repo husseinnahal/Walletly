@@ -176,7 +176,7 @@ export default function Transactions() {
 
   const currency = useSelector((state) => state.currency.currency); 
   const formatNumber = (num) => {
-    return numeral(num).format('0.0a');
+    return numeral(num).format('0.00a');
   };
 
   return (

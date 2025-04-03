@@ -41,7 +41,7 @@ export default function Goals({update}) {
 
     const currency = useSelector((state) => state.currency.currency); 
     const formatNumber = (num) => {
-      return numeral(num).format('0.0a');
+      return numeral(num).format('0.00a');
     };
 
     function openDialog(event){
